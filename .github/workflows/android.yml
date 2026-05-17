@@ -33,7 +33,7 @@ jobs:
           ls -la electrostock_android
 
       - name: Build APK
-        working-directory: electrostock_android
+        working-directory: electrostock
         run: gradle assembleDebug --stacktrace
 
       - name: Upload APK

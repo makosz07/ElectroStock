@@ -27,7 +27,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # Budujemy globalnym poleceniem 'gradle' zamiast './gradlew', wskazując folder projektu
+      # Budujemy za pomocą globalnego Gradle zainstalowanego na maszynie GitHub Actions
       - name: Build APK
         working-directory: electrostock_android
         run: gradle assembleDebug --stacktrace

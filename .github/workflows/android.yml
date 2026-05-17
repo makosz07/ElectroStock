@@ -22,16 +22,19 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17' # Jeśli build dalej pokaże błąd wersji, zmień na '21'
+          java-version: '17'
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # Nadajemy uprawnienia plikowi gradlew, który widzieliśmy na screenie
+      # KROK NAPRAWCZY: Generujemy brakujący plik gradle-wrapper.jar
+      - name: Fix missing Gradle Wrapper jar
+        working-directory: electrostock_android
+        run: jar cMf gradle/wrapper/gradle-wrapper.jar -C . . || gradle wrapper
+
       - name: Grant execute permission for gradlew
         run: chmod +x electrostock_android/gradlew
 
-      # Budujemy za pomocą lokalnego wrappera (./gradlew) w odpowiednim katalogu
       - name: Build APK
         working-directory: electrostock_android
         run: ./gradlew assembleDebug --stacktrace

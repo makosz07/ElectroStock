@@ -21,20 +21,20 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 17
+          distribution: 'temurin'
+          java-version: '17' # Jeśli build dalej pokaże błąd wersji, zmień na '21'
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Show files
-        run: |
-          ls -la
-          ls -la electrostock_android
+      # Nadajemy uprawnienia plikowi gradlew, który widzieliśmy na screenie
+      - name: Grant execute permission for gradlew
+        run: chmod +x electrostock_android/gradlew
 
+      # Budujemy za pomocą lokalnego wrappera (./gradlew) w odpowiednim katalogu
       - name: Build APK
         working-directory: electrostock_android
-        run: gradle assembleDebug --stacktrace
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

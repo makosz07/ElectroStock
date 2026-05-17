@@ -34,9 +34,7 @@ jobs:
 
       - name: Build APK
         working-directory: electrostock_android
-        run: |
-          chmod +x ./gradlew
-          ./gradlew assembleDebug --stacktrace
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

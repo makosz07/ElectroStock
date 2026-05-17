@@ -24,10 +24,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      # TUTAJ ZMIANA: Wymuszamy stabilną wersję Gradle 8.7 zamiast najnowszej 9.x
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
 
-      # Budujemy za pomocą globalnego Gradle zainstalowanego na maszynie GitHub Actions
+      # Budujemy za pomocą globalnego Gradle
       - name: Build APK
         working-directory: electrostock_android
         run: gradle assembleDebug --stacktrace

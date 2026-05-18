@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Unzip project
-        run: unzip -o electrostock_offline.zip
+        run: unzip -o electrostock.zip
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -30,7 +30,7 @@ jobs:
           gradle-version: '8.7'
 
       - name: Build APK
-        working-directory: electrostock_offline
+        working-directory: electrostock
         run: gradle assembleDebug --stacktrace
 
       - name: Build AAB
@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: electrostock-aab
-          path: electrostock_offline/app/build/outputs/bundle/release/*.aab
+          path: electrostock/app/build/outputs/bundle/release/*.aab

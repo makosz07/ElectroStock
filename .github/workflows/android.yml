@@ -34,14 +34,14 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Build AAB
-        working-directory: electrostock_offline
+        working-directory: electrostock
         run: gradle bundleRelease --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: electrostock-apk
-          path: electrostock_offline/app/build/outputs/apk/debug/*.apk
+          path: electrostock/app/build/outputs/apk/debug/*.apk
 
       - name: Upload AAB
         uses: actions/upload-artifact@v4

@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android AAB
 
 on:
   push:
@@ -29,14 +29,12 @@ jobs:
         with:
           gradle-version: '8.7'
 
-      # Budujemy aplikację, wskazując nowy, poprawny folder roboczy
-      - name: Build APK
+      - name: Build AAB
         working-directory: electrostock_offline
-        run: gradle assembleDebug --stacktrace
+        run: gradle bundleRelease --stacktrace
 
-      # Pobieramy gotowy plik APK z nowego folderu
-      - name: Upload APK
+      - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
-          name: electrostock-apk
-          path: electrostock_offline/app/build/outputs/apk/debug/*.apk
+          name: electrostock-aab
+          path: electrostock_offline/app/build/outputs/bundle/release/*.aab

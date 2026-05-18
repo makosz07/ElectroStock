@@ -31,7 +31,7 @@ jobs:
 
       # Budujemy aplikację, wskazując nowy, poprawny folder roboczy
       - name: Build APK
-        working-directory: electrostock_offline
+        working-directory: electrostock_premium
         run: gradle assembleDebug --stacktrace
 
       # Pobieramy gotowy plik APK z nowego folderu
@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: electrostock-apk
-          path: electrostock_offline/app/build/outputs/apk/debug/*.apk
+          path: electrostock_premium/app/build/outputs/apk/debug/*.apk

@@ -48,3 +48,4 @@ jobs:
         with:
           name: electrostock-aab
           path: electrostock/app/build/outputs/bundle/release/*.aab
+          

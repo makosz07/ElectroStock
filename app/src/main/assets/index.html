@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ElectroStock</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="splash" class="splash">
+  <div class="splash-inner">
+    <div class="splash-icon">⚡</div>
+    <div class="splash-title">ElectroStock</div>
+  </div>
+</div>
+
+<div id="loginView" class="view hidden">
+  <div class="login-wrap">
+    <div class="login-lang"><select class="input" id="authLang" onchange="setAuthLang(this.value)"><option value="pl">🇵🇱 PL</option><option value="en" selected>🇬🇧 EN</option><option value="es">🇪🇸 ES</option></select></div>
+    <div class="login-logo">⚡</div>
+    <h1 class="login-title">ElectroStock</h1>
+    <p class="login-sub" id="loginSub">Local inventory for parts and items</p>
+    <div id="loginForm">
+      <div class="form-group">
+        <label class="form-label" for="loginUser">Użytkownik</label>
+        <input class="input" type="text" id="loginUser" autocomplete="username" placeholder="login">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="loginPass">Hasło</label>
+        <input class="input" type="password" id="loginPass" autocomplete="current-password" placeholder="••••••">
+      </div>
+      <button class="btn btn-primary w100" id="authBtn" onclick="doAuth()"></button>
+      <div class="login-switch">
+        <span id="loginSwitchTxt"></span>
+        <a onclick="toggleAuthMode()" id="loginSwitchLink" style="cursor:pointer"></a>
+      </div>
+      <div id="loginError" class="error-msg hidden"></div>
+      <p id="localOnlyNote" class="local-note">Dane i pliki kopii zapasowej są przechowywane tylko lokalnie na tym urządzeniu.</p>
+    </div>
+  </div>
+</div>
+
+<div id="appView" class="view hidden">
+  <div class="topbar">
+    <button class="topbar-menu" onclick="toggleSidebar()">☰</button>
+    <span class="topbar-title" id="topbarTitle">ElectroStock</span>
+    <div class="topbar-actions">
+      <button class="topbar-btn" onclick="navigate('search')" title="Szukaj">🔍</button>
+      <button class="topbar-btn" onclick="openAddPart()" title="Dodaj">＋</button>
+    </div>
+  </div>
+
+  <div id="sidebarOverlay" class="sidebar-overlay hidden" onclick="closeSidebar()"></div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">⚡</div>
+      <div style="flex:1;min-width:0">
+        <div class="sidebar-username" id="sidebarUsername">–</div>
+        <div class="sidebar-role" id="sidebarRole">użytkownik</div>
+      </div>
+      <button class="sidebar-logout" onclick="doLogout()" title="Wyloguj">→</button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">INWENTARZ</div>
+      <a class="sidebar-link" id="navAll" onclick="navigate('all')">
+        <span class="sidebar-icon">📦</span><span>Wszystkie części</span>
+      </a>
+      <a class="sidebar-link" id="navLow" onclick="navigate('low')">
+        <span class="sidebar-icon">⚠️</span><span>Niski stan</span>
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">KATEGORIE</div>
+      <div id="categoryList"></div>
+      <a class="sidebar-link sidebar-link-muted" onclick="openCategoryManager()">
+        <span class="sidebar-icon">✏️</span><span>Zarządzaj kategoriami</span>
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">PLATFORMY</div>
+      <a class="sidebar-link" id="navAllPlat" onclick="filterByPlatform(null)">
+        <span class="sidebar-icon">🔲</span><span>Wszystkie platformy</span>
+      </a>
+      <div id="platformList"></div>
+      <a class="sidebar-link sidebar-link-muted" onclick="openPlatformManager()">
+        <span class="sidebar-icon">✏️</span><span>Zarządzaj platformami</span>
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">DANE</div>
+      <a class="sidebar-link" onclick="navigate('settings')">
+        <span class="sidebar-icon">⚙️</span><span>Ustawienia</span>
+      </a>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+    </div>
+  </div>
+
+  <div class="content" id="mainContent"></div>
+</div>
+
+<div id="modalOverlay" class="modal-overlay hidden" onclick="closeModalOuter(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">–</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="db.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
